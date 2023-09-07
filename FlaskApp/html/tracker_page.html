@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type=text/javascript>
+        var ajax_call = function(e) {
+            $.getJSON('/get_overlay_data', function(data) {
+                console.log(data);
+                for (const key in data) {
+                    console.log(`${key} : ${data[key]}`)
+                    if (key == 'tier_icon') {
+                        $(`#${key}`).attr("src", `${data[key]}`);
+                    } else {
+                        $(`#${key}`).html(`${data[key]}`);
+                    }
+                }
+                //$(`#tier_icon`).attr("src", `${data["tier_icon"]}`);
+                //$(`#${key}`).html(`${key}: ${data[key]}`);
+            });
+        }
+
+        var interval = 1000 * 5 * 1
+
+        setInterval(ajax_call, interval);
+    </script>
+    <head>
+        <title>StatTracker</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/css/main.css">
+    </head>
+    <body>
+        <div id="tracker">
+            <div class="tier_icon_div">
+                <img id="tier_icon" src="{{overlay_data['tier_icon']}}" alt="Couldn't Load Tier Icon">
+            </div>
+            <div class="summoner_region_div">
+                <p id="summoner_name">{{overlay_data['summoner_name']}}</p>
+            </div>
+            <div class="tier_rank_div">
+                <p><span id="tier">{{overlay_data['tier']}}</span> <span id="rank">{{overlay_data['rank']}}</span></p>
+            </div>
+            <div class="lp_div">
+                <p id="lp">{{overlay_data['lp']}}</p>
+            </div>
+            <div class="average_placement">
+                <p id="todays_placements">{{overlay_data['todays_placements']}} <br>Avg. Place</p>
+            </div>
+        </div>
+    </body>
+</html>
