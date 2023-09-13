@@ -66,12 +66,12 @@ def watchful_eye():
 
     """
     f = configparser.ConfigParser()
-    f.read("config.ini")
-    config = f["config"]
+    f.read(os.getcwd() + os.sep + os.pardir + os.sep + "config.ini")
+    config = f['config']
     
-    watcher = riotwatcher.TftWatcher(config["API_KEE"])
+    watcher = riotwatcher.TftWatcher(config["API_KEY"])
 
-    player = watcher.summoner.by_name(config["REGION"], "llVSAVll")
+    player = watcher.summoner.by_name(config["REGION"], "JahnTv")
     ranked_stats = watcher.league.by_summoner(config["REGION"], player['id'])
     match_history = watcher.match.by_puuid(config["REGION"], player["puuid"])
 
@@ -86,7 +86,7 @@ def watchful_eye():
     overlay_data["summoner_name"] = player["name"]
     overlay_data["tier"] = ranked_stats[0]["tier"]
     overlay_data["rank"] = ranked_stats[0]["rank"]
-    overlay_data["lp"] = "" + ranked_stats[0]["leaguePoints"] + "LP"
+    overlay_data["lp"] = "" + str(ranked_stats[0]["leaguePoints"]) + "LP"
     overlay_data["todays_match_placements"] = todays_match_placements
     overlay_data["todays_average"] = round(sum(todays_match_placements) / len(todays_match_placements), 1) if len(todays_match_placements) > 0 else 0
 
