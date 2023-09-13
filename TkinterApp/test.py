@@ -1,4 +1,4 @@
-import tkinter as tk
+from tkinter import *
 
 import os
 import sys
@@ -6,10 +6,14 @@ import sys
 sys.path.insert(0, os.getcwd() + os.sep + os.pardir)
 
 def main():
-    root = tk.Tk()
-    label = tk.Label(root, text="Hello, Tkinter!")
-    label.pack()
-    root.mainloop()
+
+    win = Tk()
+    win.geometry("300x200")
+    Label(win, text="Hello World!").pack(pady=20)
+    win.attributes('-topmost', True)
+    win.attributes('-alpha', 0.5)
+    win.mainloop()
+
 
 if __name__ == "__main__":
     main()
