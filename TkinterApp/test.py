@@ -5,6 +5,10 @@ import sys
 
 sys.path.insert(0, os.getcwd() + os.sep + os.pardir)
 
+'''
+Intro to Tkinter: https://realpython.com/python-gui-tkinter/
+'''
+
 def main():
 
     win = Tk()
