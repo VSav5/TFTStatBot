@@ -71,7 +71,7 @@ def watchful_eye():
     
     watcher = riotwatcher.TftWatcher(config["API_KEY"])
 
-    player = watcher.summoner.by_name(config["REGION"], "JahnTv")
+    player = watcher.summoner.by_name(config["REGION"], config["SUMMONER_NAME"])
     ranked_stats = watcher.league.by_summoner(config["REGION"], player['id'])
     match_history = watcher.match.by_puuid(config["REGION"], player["puuid"])
 
@@ -84,15 +84,20 @@ def watchful_eye():
     
     overlay_data = {}
     overlay_data["summoner_name"] = player["name"]
-    overlay_data["tier"] = ranked_stats[0]["tier"]
-    overlay_data["rank"] = ranked_stats[0]["rank"]
-    overlay_data["lp"] = "" + str(ranked_stats[0]["leaguePoints"]) + "LP"
+    try:
+        overlay_data["tier"] = ranked_stats[0]["tier"]
+        overlay_data["rank"] = ranked_stats[0]["rank"]
+        overlay_data["lp"] = "" + str(ranked_stats[0]["leaguePoints"]) + "LP"
+    except:
+        overlay_data["tier"] = "UNRANKED"
+        overlay_data["rank"] = ""
+        overlay_data["lp"] = ""
     overlay_data["todays_match_placements"] = todays_match_placements
     overlay_data["todays_average"] = round(sum(todays_match_placements) / len(todays_match_placements), 1) if len(todays_match_placements) > 0 else 0
 
-    css = os.listdir("css")
+    css = os.listdir("C:\\Users\\Vincent\\Desktop\\TFTStatBot\\FlaskApp\\css")
     if f"{overlay_data['tier'].upper()}.png" in css:
-        overlay_data["tier_icon"] = f"/css/{overlay_data['tier']}.png"
+        overlay_data["tier_icon"] = f"C:\\Users\\Vincent\\Desktop\\TFTStatBot\\FlaskApp\\css\\{overlay_data['tier']}.png"
     else:
         overlay_data["tier_icon"] = "Could Not Load Icon"
     print(overlay_data)
