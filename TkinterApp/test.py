@@ -1,4 +1,5 @@
 from tkinter import *
+from PIL import ImageTk, Image
 
 import os
 import sys
@@ -14,13 +15,19 @@ Intro to Tkinter: https://realpython.com/python-gui-tkinter/
 def main():
 
     overlay_data = watchful_eye()
+    overlay_data["tier_icon"] = "C:\\Users\\Vincent\\Desktop\\TFTStatBot\\TkinterApp\\rankicons\\image.png"
 
     win = Tk()
     win.geometry("300x200")
-    
-    Label(win, text="Hello World!").pack(pady=20)
+
     for key in overlay_data:
-        Label(win, text=overlay_data[key]).pack(padx=10, pady=10)
+        if key == "tier_icon":
+            load = Image.open(overlay_data[key])
+            render = ImageTk.PhotoImage(load)
+            Label(win, image=render).pack(padx=10, pady=10)
+        else:
+            text = key + " " + str(overlay_data[key])
+            Label(win, text=text).pack(padx=10, pady=10)
 
     win.attributes('-topmost', True)
     win.attributes('-alpha', 0.5)
