@@ -50,6 +50,9 @@ def get_placement_by_puuid(match, puuid):
         if player["puuid"] == puuid:
             return player["placement"]
 
+def parent_dir_and(f):
+    return os.path.join(os.path.dirname(os.path.abspath(__file__)), f)
+
 def watchful_eye():
 
     """
@@ -96,9 +99,9 @@ def watchful_eye():
     overlay_data["todays_match_placements"] = todays_match_placements
     overlay_data["todays_average"] = round(sum(todays_match_placements) / len(todays_match_placements), 1) if len(todays_match_placements) > 0 else 0
 
-    css = os.listdir("C:\\Users\\Vincent\\Desktop\\TFTStatBot\\FlaskApp\\css")
+    css = os.listdir(parent_dir_and("css"))
     if f"{overlay_data['tier'].upper()}.png" in css:
-        overlay_data["tier_icon"] = f"C:\\Users\\Vincent\\Desktop\\TFTStatBot\\FlaskApp\\css\\{overlay_data['tier']}.png"
+        overlay_data["tier_icon"] = parent_dir_and("css") + os.sep + overlay_data['tier'] + ".png"
     else:
         overlay_data["tier_icon"] = "Could Not Load Icon"
     print(overlay_data)

@@ -9,6 +9,8 @@
                     console.log(`${key} : ${data[key]}`)
                     if (key == 'tier_icon') {
                         $(`#${key}`).attr("src", `${data[key]}`);
+                    } else if (key == 'todays_average') {
+                        $(`#${key}`).html(`${data[key]} <br> Avg. Place`);
                     } else {
                         $(`#${key}`).html(`${data[key]}`);
                     }
@@ -43,7 +45,10 @@
                 <p id="lp">{{overlay_data['lp']}}</p>
             </div>
             <div class="average_placement">
-                <p id="todays_placements">{{overlay_data['todays_placements']}} <br>Avg. Place</p>
+                <p id="todays_average">{{overlay_data['todays_average']}} <br>Avg. Place</p>
+            </div>
+            <div class="todays_match_placements">
+                <p id="todays_match_placements">{{overlay_data['todays_match_placements']}}</p>
             </div>
         </div>
     </body>
